@@ -1,6 +1,6 @@
 'use strict';
 
-
+var data_result = {};
 
 var appConfig = window.appConfig || {};
 
@@ -1664,7 +1664,7 @@ angular.module('app.chat', ['ngSanitize'])
 })();
 'use strict';
 
-angular.module('app.dashboard').controller('DashboardCtrl', function ($scope, $interval, CalendarEvent) {
+angular.module('app.dashboard').controller('DashboardCtrl', function ($scope, $interval, CalendarEvent, $http) {
 
     // Live Feeds Widget Data And Display Controls
     // Live Stats Tab
@@ -1763,36 +1763,47 @@ angular.module('app.dashboard').controller('DashboardCtrl', function ($scope, $i
 //        ];
 //        return data;
 //    };
-    $scope.myData = [
-        {
-            "cantidad": "2",
-            "detalle": "Producto X",
-            "precio": "10.75",
-        },
-        {
-            "cantidad": "2",
-            "detalle": "Producto T",
-            "precio": "10.24",
-        }
-        ,
-        {
-            "cantidad": "2",
-            "detalle": "Producto R",
-            "precio": "10.24",
-        }
-        ,
-        {
-            "cantidad": "2",
-            "detalle": "Producto Z",
-            "precio": "10.24",
-        },
-        {
-            "cantidad": "2",
-            "detalle": "Producto 1",
-            "precio": "10.24",
-        }
-    ];
-
+//    $scope.myData = [
+//        {
+//            "cantidad": "2",
+//            "detalle": "Producto X",
+//            "precio": "10.75",
+//        },
+//        {
+//            "cantidad": "2",
+//            "detalle": "Producto T",
+//            "precio": "10.24",
+//        }
+//        ,
+//        {
+//            "cantidad": "2",
+//            "detalle": "Producto R",
+//            "precio": "10.24",
+//        }
+//        ,
+//        {
+//            "cantidad": "2",
+//            "detalle": "Producto Z",
+//            "precio": "10.24",
+//        },
+//        {
+//            "cantidad": "2",
+//            "detalle": "Producto 1",
+//            "precio": "10.24",
+//        }
+//    ];
+    $scope.PostDataResponse = {id: 2};
+    $scope.ResponseDetails = {id: 2};
+    $http({
+        method: 'POST',
+        url: 'http://eparqin.com/json/ordenesjson.php',
+    }).success(function (data, status, headers, config) {
+        // handle success things
+        console.log("sdada", data);
+        $scope.myData=data;
+    }).error(function (data, status, headers, config) {
+        // handle error things
+    });
     $scope.myInterval = 3000;
     $scope.slides = [
         {

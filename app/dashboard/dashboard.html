@@ -2,119 +2,119 @@
 
 <div id="content"  ng-controller="DashboardCtrl">
     {{title_dashboard}}
+    {{data_ready}}
+    <div class="row-fluid" id="productos-data">
+        <div class="col-md-4">
 
-            <div class="row-fluid" id="productos-data">
-                <div class="col-md-4">
-
-                    <div class="form-group">
-                        <label class="col-md-2 control-label" for="select-1">Buscar</label>
-                        <div class="col-md-10">
-                            <!--                            
-                            -->                            
-                            <input type="hidden" id="productos-data-info" 
-                                   ui-select2="select2Options"
-                                   ng-model="factura.value"
-                                   data-placeholder="Seleccione un Producto"
-                                   ng-required="true"   style="width:250px"  />
-
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-8" id="content-data-producto">
-                    <div class="row" id="content-filters">
-                        <div class="col-md-4">
-                            <select class="form-control" id="select-1">
-                                <option value="Amsterdam">Categoria</option>
-                                <option value="Atlanta">Atlanta</option>
-                                <option value="Baltimore">Baltimore</option>
-                                <option value="Boston">Boston</option>
-                                <option value="Buenos Aires">Buenos Aires</option>
-                                <option value="Calgary">Calgary</option>
-                                <option value="Chicago">Chicago</option>
-                                <option value="Denver">Denver</option>
-                                <option value="Dubai">Dubai</option>
-                                <option value="Frankfurt">Frankfurt</option>
-                                <option value="Hong Kong">Hong Kong</option>
-                                <option value="Honolulu">Honolulu</option>
-                                <option value="Houston">Houston</option>
-                                <option value="Kuala Lumpur">Kuala Lumpur</option>
-                                <option value="London">London</option>
-                                <option value="Los Angeles">Los Angeles</option>
-                                <option value="Melbourne">Melbourne</option>
-                                <option value="Mexico City">Mexico City</option>
-                                <option value="Miami">Miami</option>
-                                <option value="Minneapolis">Minneapolis</option>
-                            </select> 
-
-                        </div>
-                        <div class="col-md-4">
-                            <select class="form-control" id="select-1">
-                                <option value="Amsterdam">Subcategoria</option>
-                                <option value="Atlanta">Atlanta</option>
-                                <option value="Baltimore">Baltimore</option>
-                                <option value="Boston">Boston</option>
-                                <option value="Buenos Aires">Buenos Aires</option>
-                                <option value="Calgary">Calgary</option>
-                                <option value="Chicago">Chicago</option>
-                                <option value="Denver">Denver</option>
-                                <option value="Dubai">Dubai</option>
-                                <option value="Frankfurt">Frankfurt</option>
-                                <option value="Hong Kong">Hong Kong</option>
-                                <option value="Honolulu">Honolulu</option>
-                                <option value="Houston">Houston</option>
-                                <option value="Kuala Lumpur">Kuala Lumpur</option>
-                                <option value="London">London</option>
-                                <option value="Los Angeles">Los Angeles</option>
-                                <option value="Melbourne">Melbourne</option>
-                                <option value="Mexico City">Mexico City</option>
-                                <option value="Miami">Miami</option>
-                                <option value="Minneapolis">Minneapolis</option>
-                            </select> 
-
-                        </div>
-                        <div class="col-md-4">
-                            <select class="form-control" id="select-1">
-                                <option value="Amsterdam">Color</option>
-                                <option value="Atlanta">Atlanta</option>
-                                <option value="Baltimore">Baltimore</option>
-                                <option value="Boston">Boston</option>
-                                <option value="Buenos Aires">Buenos Aires</option>
-                                <option value="Calgary">Calgary</option>
-                                <option value="Chicago">Chicago</option>
-                                <option value="Denver">Denver</option>
-                                <option value="Dubai">Dubai</option>
-                                <option value="Frankfurt">Frankfurt</option>
-                                <option value="Hong Kong">Hong Kong</option>
-                                <option value="Honolulu">Honolulu</option>
-                                <option value="Houston">Houston</option>
-                                <option value="Kuala Lumpur">Kuala Lumpur</option>
-                                <option value="London">London</option>
-                                <option value="Los Angeles">Los Angeles</option>
-                                <option value="Melbourne">Melbourne</option>
-                                <option value="Mexico City">Mexico City</option>
-                                <option value="Miami">Miami</option>
-                                <option value="Minneapolis">Minneapolis</option>
-                            </select> 
-
-                        </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label" for="select-1">Buscar</label>
+                <div class="col-md-10">
+                    <!--                            
+                    -->                            
+                    <input type="hidden" id="productos-data-info" 
+                           ui-select2="select2Options"
+                           ng-model="factura.value"
+                           data-placeholder="Seleccione un Producto"
+                           ng-required="true"   style="width:250px"  />
 
 
-                    </div>
-                
                 </div>
             </div>
-        </fieldset>
-
-        <div class="row-fluid" id="table-productos">
-
-            <div class="col-md-12">
-                <div id="dg-ventas" ui-grid="{ data: myData }" class=" xywer-tbl-angular"></div>
-            </div>
-            
-            <p>{{factura.value}}</p>
         </div>
-     
-      
+        <div class="col-md-8" id="content-data-producto">
+            <div class="row" id="content-filters">
+                <div class="col-md-4">
+                    <select class="form-control" id="select-1">
+                        <option value="Amsterdam">Categoria</option>
+                        <option value="Atlanta">Atlanta</option>
+                        <option value="Baltimore">Baltimore</option>
+                        <option value="Boston">Boston</option>
+                        <option value="Buenos Aires">Buenos Aires</option>
+                        <option value="Calgary">Calgary</option>
+                        <option value="Chicago">Chicago</option>
+                        <option value="Denver">Denver</option>
+                        <option value="Dubai">Dubai</option>
+                        <option value="Frankfurt">Frankfurt</option>
+                        <option value="Hong Kong">Hong Kong</option>
+                        <option value="Honolulu">Honolulu</option>
+                        <option value="Houston">Houston</option>
+                        <option value="Kuala Lumpur">Kuala Lumpur</option>
+                        <option value="London">London</option>
+                        <option value="Los Angeles">Los Angeles</option>
+                        <option value="Melbourne">Melbourne</option>
+                        <option value="Mexico City">Mexico City</option>
+                        <option value="Miami">Miami</option>
+                        <option value="Minneapolis">Minneapolis</option>
+                    </select> 
+
+                </div>
+                <div class="col-md-4">
+                    <select class="form-control" id="select-1">
+                        <option value="Amsterdam">Subcategoria</option>
+                        <option value="Atlanta">Atlanta</option>
+                        <option value="Baltimore">Baltimore</option>
+                        <option value="Boston">Boston</option>
+                        <option value="Buenos Aires">Buenos Aires</option>
+                        <option value="Calgary">Calgary</option>
+                        <option value="Chicago">Chicago</option>
+                        <option value="Denver">Denver</option>
+                        <option value="Dubai">Dubai</option>
+                        <option value="Frankfurt">Frankfurt</option>
+                        <option value="Hong Kong">Hong Kong</option>
+                        <option value="Honolulu">Honolulu</option>
+                        <option value="Houston">Houston</option>
+                        <option value="Kuala Lumpur">Kuala Lumpur</option>
+                        <option value="London">London</option>
+                        <option value="Los Angeles">Los Angeles</option>
+                        <option value="Melbourne">Melbourne</option>
+                        <option value="Mexico City">Mexico City</option>
+                        <option value="Miami">Miami</option>
+                        <option value="Minneapolis">Minneapolis</option>
+                    </select> 
+
+                </div>
+                <div class="col-md-4">
+                    <select class="form-control" id="select-1">
+                        <option value="Amsterdam">Color</option>
+                        <option value="Atlanta">Atlanta</option>
+                        <option value="Baltimore">Baltimore</option>
+                        <option value="Boston">Boston</option>
+                        <option value="Buenos Aires">Buenos Aires</option>
+                        <option value="Calgary">Calgary</option>
+                        <option value="Chicago">Chicago</option>
+                        <option value="Denver">Denver</option>
+                        <option value="Dubai">Dubai</option>
+                        <option value="Frankfurt">Frankfurt</option>
+                        <option value="Hong Kong">Hong Kong</option>
+                        <option value="Honolulu">Honolulu</option>
+                        <option value="Houston">Houston</option>
+                        <option value="Kuala Lumpur">Kuala Lumpur</option>
+                        <option value="London">London</option>
+                        <option value="Los Angeles">Los Angeles</option>
+                        <option value="Melbourne">Melbourne</option>
+                        <option value="Mexico City">Mexico City</option>
+                        <option value="Miami">Miami</option>
+                        <option value="Minneapolis">Minneapolis</option>
+                    </select> 
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+</fieldset>
+
+<div class="row-fluid" id="table-productos">
+
+    <div class="col-md-12">
+        <div id="dg-ventas" ui-grid="{ data: myData }" class=" xywer-tbl-angular"></div>
+    </div>
+
+    <p>{{factura.value}}</p>
+</div>
+
+
 </div>
 <!-- END MAIN CONTENT -->
