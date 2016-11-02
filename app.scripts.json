@@ -133,7 +133,9 @@
     "fullcalendar": "smartadmin-plugin/fullcalendar/jquery.fullcalendar.min.js",
     "smartwidgets": "smartadmin-plugin/smartwidgets/jarvis.widget.min.js",
 
-    "notification": "smartadmin-plugin/notification/SmartNotification.min.js"
+    "notification": "smartadmin-plugin/notification/SmartNotification.min.js",
+    "NgGridPlugin": "plugin/angular-plugins/ng-grid/ui-grid.min.js"
+    
 
   },
   "shim": {

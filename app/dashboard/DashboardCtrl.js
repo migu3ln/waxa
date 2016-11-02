@@ -4,8 +4,6 @@ angular.module('app.dashboard').controller('DashboardCtrl', function ($scope, $i
 
     // Live Feeds Widget Data And Display Controls
     // Live Stats Tab
-
-
     function getFakeItem(index, prevValue){
         var limitUp = Math.min(100, prevValue + 5),
             limitDown = Math.abs(prevValue - 5);
@@ -25,7 +23,7 @@ angular.module('app.dashboard').controller('DashboardCtrl', function ($scope, $i
         ])
     }
 
-    $scope.autoUpdate = false;
+    $scope.autoUpdate = true;
 
     var updateInterval;
     $scope.$watch('autoUpdate', function(autoUpdate){
@@ -52,11 +50,11 @@ angular.module('app.dashboard').controller('DashboardCtrl', function ($scope, $i
     $scope.liveStatsOptions = {
         yaxis: {
             min: 0,
-            max: 100
+            max: 69
         },
         xaxis: {
             min: 0,
-            max: 100
+            max: 69
         },
         colors: ['rgb(87, 136, 156)'],
         series: {

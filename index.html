@@ -3,7 +3,7 @@
     <head>
 
         <meta charset="utf-8">
-        <title> SmartAdmin (AngularJS Asingar)</title>
+        <title> Administracion</title>
         <meta name="description" content="">
         <meta name="author" content="">
 
@@ -53,58 +53,17 @@
         <link rel="apple-touch-startup-image" href="styles/img/splash/ipad-landscape.png" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape)">
         <link rel="apple-touch-startup-image" href="styles/img/splash/ipad-portrait.png" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait)">
         <link rel="apple-touch-startup-image" href="styles/img/splash/iphone.png" media="screen and (max-device-width: 320px)">
+        <!-----ui grid css ----->
+        <link rel="stylesheet" type="text/css" media="screen" href="plugin/angular-plugins/ng-grid/ui-grid.css">
+
         <script>
             var base_url_project = "/waxa";
             var api_url = "/api";
             var app_url = "/app";
         </script>
     </head>
-    <!--
 
-    TABLE OF CONTENTS.
-
-    Use search to find needed section.
-
-    ===================================================================
-
-    |  01. #CSS Links                |  all CSS links and file paths  |
-    |  02. #FAVICONS                 |  Favicon links and file paths  |
-    |  03. #GOOGLE FONT              |  Google font link              |
-    |  04. #APP SCREEN / ICONS       |  app icons, screen backdrops   |
-    |  05. #BODY                     |  body tag                      |
-    |  06. #HEADER                   |  header tag                    |
-
-    ===================================================================
-
-    -->
-
-    <!-- #BODY -->
-    <!-- Possible Classes (to hardcode the classes you must disable the __ module)
-
-    * 'smart-style-{SKIN#}'
-    * 'smart-rtl'         - Switch theme mode to RTL
-    * 'menu-on-top'       - Switch to top navigation (no DOM change required)
-    * 'no-menu'           - Hides the menu completely
-    * 'hidden-menu'       - Hides the main menu but still accessable by hovering over left edge
-    * 'fixed-header'      - Fixes the header
-    * 'fixed-navigation'  - Fixes the main menu
-    * 'fixed-ribbon'      - Fixes breadcrumb
-    * 'fixed-page-footer' - Fixes footer
-    * 'container'         - boxed layout mode (non-responsive: will not work with fixed-navigation & fixed-ribbon)
-
-    Possible attributes
-
-    * 'data-smart-device-detect' - Detects if mobile or desktop, adds a class to body tag
-    * 'data-smart-fast-click'    - Mobile click events
-    * 'data-smart-layout'        - Mobile view event listener
-    * 'data-smart-page-title'    - Page title
-
-    -->
-
-    <body data-smart-device-detect
-          data-smart-fast-click
-          data-smart-layout
-          data-smart-page-title="SmartAdmin ANGULAR JS" class="desktop-detected fixed-header fixed-page-footer">
+    <body class="fixed-header fixed-page-footer" id="body-informacion">
 
         <!-- ui-view container -->
 
@@ -120,8 +79,11 @@
         <![endif]-->
 
         <!-- Use for production after building the project with grunt --> 
+
         <script src="build/vendor.js"></script>		
         <script src="build/app.js"></script>
+        <!-----ui grid js----->
+        <script src="plugin/angular-plugins/ng-grid/ui-grid.min.js"></script>		
 
 
     </body>

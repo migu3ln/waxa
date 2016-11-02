@@ -23,7 +23,8 @@ angular.module('app.dashboard', [
                     return lazyScript.register([
                             'jquery-jvectormap-world-mill-en',
                             'flot-time',
-                            'flot-resize'
+                            'flot-resize',
+                            'NgGridPlugin'
                         ]);
                 }
             }

@@ -41,6 +41,7 @@ angular.module('SmartAdmin.Layout').factory('lazyScript', function($q, $http){
                 console.log('script is lazy loaded:', scriptName)
                 cache[scriptName].resolve(scriptName);
             };
+        
             el.src = scripts.paths[scriptName];
             var x = document.getElementsByTagName('script')[0];
             x.parentNode.insertBefore(el, x);
