@@ -111,7 +111,65 @@
     <div class="col-md-12">
         <div id="dg-ventas" ui-grid="{ data: myData }" class=" xywer-tbl-angular"></div>
     </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <table  class="table table-striped table-success xywer-tbl">
+            <thead>
+                <tr>
+                    <th><a>Id</a> 
 
+                    </th>
+                    <th> <a>Nombres</a>
+
+                    </th>                           
+                </tr>
+
+            </thead> 
+            <tbody >
+
+                <tr ng-repeat="name in docente_respuestas[0].estandar">
+
+                    <td>{{name.value}}</td>
+                    <td> <table  class="table table-striped table-success xywer-tbl">
+
+                            <tbody >
+                                <tr ng-repeat="especificos in name.especificos">
+                                    <td> {{especificos.value}}<br><br>
+                                        <h4>Observacion: </h4><p>{{especificos.observacion}}</p>
+                                    </td>
+
+                                    <td> <table  >
+
+                                            <tbody >
+                                                <tr ng-repeat="evidencias in especificos.evidencias">
+                                                    <td > {{evidencias.value}}</td>
+                                                    <td > {{evidencias.result}}</td>                                                        
+                                                    <!--<td > resultado</td>-->                                                        
+
+
+                                                </tr>
+                                                <tr>
+                                                    <td>Resultado</td>
+                                                    <td>{{especificos.estado_actual}}</td>
+                                                </tr>
+                                            </tbody>
+
+                                        </table></td>
+                                </tr>
+                            </tbody>
+
+                        </table></td>
+
+
+                    <!--<td ><tr ng-repeat="especificos in general.especificos">{{especificos.id}}</tr></td>-->
+                </tr>
+                <tr> 
+            <p>esto es tr</p>
+            </tr>
+            </tbody>
+
+        </table>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center "><h1>{{suma_total_evaluacion}} </h1></div>
+    </div>
     <p>{{factura.value}}</p>
 </div>
 
