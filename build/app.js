@@ -1820,7 +1820,14 @@ angular.module('app.dashboard').controller('DashboardCtrl', function ($scope, $i
                         telefono: value.telefono,
                         total_pedido: value.total_pedido,
                     };
+                    for (i = 0; i < data.length; i++) {
+                        data[i].subGridOptions = {
+                            columnDefs: [{name: "Id", field: "id"}, {name: "Name", field: "name"}],
+                            data: data[i].friends
+                        }
+                    }
                     array_ready.push(row_object);
+
                 });
                 array_ready[0].$$treeLevel = 0;
                 array_ready[1].$$treeLevel = 1;
