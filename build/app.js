@@ -1666,7 +1666,7 @@ angular.module('app.chat', ['ngSanitize'])
 'use strict';
 //uiGridConstants
 //angular.module('app.dashboard').controller('DashboardCtrl', function ($scope, $interval, CalendarEvent, $http,uiGridConstants) {
-angular.module('app.dashboard').controller('DashboardCtrl', function ($scope, $interval, CalendarEvent, $http,uiGridConstants) {
+angular.module('app.dashboard').controller('DashboardCtrl', function ($scope, $interval, CalendarEvent, $http, uiGridConstants) {
     // Live Feeds Widget Data And Display Controls
     // Live Stats Tab
 
@@ -1725,43 +1725,54 @@ angular.module('app.dashboard').controller('DashboardCtrl', function ($scope, $i
         showColumnFooter: true,
         enableFiltering: true,
         columnDefs: [
-            {field: 'apellido', width: '13%'},
-            {field: 'ciudad', aggregationType: uiGridConstants.aggregationTypes.sum, width: '13%'},
+            {field: 'id_pedido'},
+            {field: 'nombres'},
+            {field: 'pais'},
+            {field: 'ciudad'},
+            {field: 'codigo_postal'},
+            {field: 'direccion_total'},
+            {field: 'telefono'},
+            {field: 'estado'},
+            {field: 'total_pedido', aggregationType: uiGridConstants.aggregationTypes.sum, width: '13%'},
         ],
         data: data,
         onRegisterApi: function (gridApi) {
             $scope.gridApi = gridApi;
         }
     };
-
-    $scope.toggleFooter = function () {
-        $scope.gridOptions.showGridFooter = !$scope.gridOptions.showGridFooter;
-        $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.OPTIONS);
-    };
-
-    $scope.toggleColumnFooter = function () {
-        $scope.gridOptions.showColumnFooter = !$scope.gridOptions.showColumnFooter;
-        $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.OPTIONS);
-    };
+//
+//    $scope.toggleFooter = function () {
+//        $scope.gridOptions.showGridFooter = !$scope.gridOptions.showGridFooter;
+//        $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.OPTIONS);
+//    };
+//
+//    $scope.toggleColumnFooter = function () {
+//        $scope.gridOptions.showColumnFooter = !$scope.gridOptions.showColumnFooter;
+//        $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.OPTIONS);
+//    };
 
     $http.get('http://eparqin.com/json/ordenesjson.php')
             .success(function (data) {
-//                data.forEach(function (row) {
-//                    row.registered = Date.parse(row.registered);
-//                });
-console.log(data);
-                $scope.gridOptions.data = data;
+                var array_ready = [];
+                angular.forEach(data, function (value, key) {
+                    var row_object = {
+                        id_pedido:value.id_pedido,
+                        nombres: value.nombre + " " + value.apellido,
+                        pais: value.pais,
+                        ciudad: value.ciudad,
+                        codigo_postal: value.codigo_postal,
+                        direccion_total: "Direccion Principal:" + value.direccion1 + " Direccion Secundaria:" + value.direccion2,
+                        fecha_pedido: value.fecha_pedido,
+                        estado: value.estado,
+                        telefono: value.telefono,
+                        total_pedido: value.total_pedido,
+                    };
+                    array_ready.push(row_object);
+                });
+
+                $scope.gridOptions.data = array_ready;
             });
-//    $http({
-//        method: 'POST',
-//        url: 'http://eparqin.com/json/ordenesjson.php',
-//    }).success(function (data, status, headers, config) {
-//        // handle success things
-//        console.log("sdada", data);
-//        $scope.myData = data;
-//    }).error(function (data, status, headers, config) {
-//        // handle error things
-//    });
+
     $scope.myInterval = 3000;
     $scope.slides = [
         {
