@@ -334,12 +334,13 @@ window.appConfig = appConfig;
 $.sound_path = appConfig.sound_path;
 $.sound_on = appConfig.sound_on;
 
-
+//--------ASIGNACION DE MODULOS---
 $(function () {
 
     // moment.js default language
-    moment.locale('en')
+    moment.locale('es')
 
+//    angular.bootstrap(document, ['app', 'ui.grid','uiGridConstants']);
     angular.bootstrap(document, ['app', 'ui.grid']);
 
 });
@@ -1663,9 +1664,9 @@ angular.module('app.chat', ['ngSanitize'])
     angular.module('SmartAdmin.Layout', []);
 })();
 'use strict';
-
-angular.module('app.dashboard').controller('DashboardCtrl', function ($scope, $interval, CalendarEvent, $http) {
-
+//uiGridConstants
+//angular.module('app.dashboard').controller('DashboardCtrl', function ($scope, $interval, CalendarEvent, $http,uiGridConstants) {
+angular.module('app.dashboard').controller('DashboardCtrl', function ($scope, $interval, CalendarEvent, $http,uiGridConstants) {
     // Live Feeds Widget Data And Display Controls
     // Live Stats Tab
 
@@ -1716,94 +1717,51 @@ angular.module('app.dashboard').controller('DashboardCtrl', function ($scope, $i
         alert("aa");
         $scope.shirley = "Hola q mas alex";
     }
-//    $scope.myData = function () {
-//        $.ajax({
-//            type: "POST",
-//            url: "http://eparqin.com/json/detallejson.php",
-//            dataType: "json",
-//            success: function (data) {
-//             return data;
-//            },
-//            failure: function (response) {
-//                alert(response.d);
-//            }
-//        });
-//
-//        
-//        
-//        var data=
-//        [
-//            {
-//                "cantidad": "2",
-//                "detalle": "Producto X",
-//                "precio": "10.75",
-//            },
-//            {
-//                "cantidad": "2",
-//                "detalle": "Producto T",
-//                "precio": "10.24",
-//            }
-//            ,
-//            {
-//                "cantidad": "2",
-//                "detalle": "Producto R",
-//                "precio": "10.24",
-//            }
-//            ,
-//            {
-//                "cantidad": "2",
-//                "detalle": "Producto Z",
-//                "precio": "10.24",
-//            },
-//            {
-//                "cantidad": "2",
-//                "detalle": "Producto 1",
-//                "precio": "10.24",
-//            }
-//        ];
-//        return data;
-//    };
-//    $scope.myData = [
-//        {
-//            "cantidad": "2",
-//            "detalle": "Producto X",
-//            "precio": "10.75",
-//        },
-//        {
-//            "cantidad": "2",
-//            "detalle": "Producto T",
-//            "precio": "10.24",
-//        }
-//        ,
-//        {
-//            "cantidad": "2",
-//            "detalle": "Producto R",
-//            "precio": "10.24",
-//        }
-//        ,
-//        {
-//            "cantidad": "2",
-//            "detalle": "Producto Z",
-//            "precio": "10.24",
-//        },
-//        {
-//            "cantidad": "2",
-//            "detalle": "Producto 1",
-//            "precio": "10.24",
-//        }
-//    ];
-    $scope.PostDataResponse = {id: 2};
-    $scope.ResponseDetails = {id: 2};
-    $http({
-        method: 'POST',
-        url: 'http://eparqin.com/json/ordenesjson.php',
-    }).success(function (data, status, headers, config) {
-        // handle success things
-        console.log("sdada", data);
-        $scope.myData=data;
-    }).error(function (data, status, headers, config) {
-        // handle error things
-    });
+//   -------NEW----
+    var data = [];
+
+    $scope.gridOptions = {
+        showGridFooter: true,
+        showColumnFooter: true,
+        enableFiltering: true,
+        columnDefs: [
+            {field: 'apellido', width: '13%'},
+            {field: 'ciudad', aggregationType: uiGridConstants.aggregationTypes.sum, width: '13%'},
+        ],
+        data: data,
+        onRegisterApi: function (gridApi) {
+            $scope.gridApi = gridApi;
+        }
+    };
+
+    $scope.toggleFooter = function () {
+        $scope.gridOptions.showGridFooter = !$scope.gridOptions.showGridFooter;
+        $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.OPTIONS);
+    };
+
+    $scope.toggleColumnFooter = function () {
+        $scope.gridOptions.showColumnFooter = !$scope.gridOptions.showColumnFooter;
+        $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.OPTIONS);
+    };
+
+    $http.get('http://eparqin.com/json/ordenesjson.php')
+            .success(function (data) {
+//                data.forEach(function (row) {
+//                    row.registered = Date.parse(row.registered);
+//                });
+console.log(data);
+                $scope.gridOptions.data = data;
+            });
+//    $http({
+//        method: 'POST',
+//        url: 'http://eparqin.com/json/ordenesjson.php',
+//    }).success(function (data, status, headers, config) {
+//        // handle success things
+//        console.log("sdada", data);
+//        $scope.myData = data;
+//    }).error(function (data, status, headers, config) {
+//        // handle error things
+//    });
     $scope.myInterval = 3000;
     $scope.slides = [
         {
@@ -2181,6 +2139,7 @@ angular.module('app.dashboard').controller('DashboardCtrl', function ($scope, $i
 
 
 });
+//}]);
 'use strict'
 
 angular.module('app.forms').value('formsCommon', {
