@@ -341,7 +341,8 @@ $(function () {
     moment.locale('es')
 
 //    angular.bootstrap(document, ['app', 'ui.grid','uiGridConstants']);
-    angular.bootstrap(document, ['app', 'ui.grid']);
+    angular.bootstrap(document, ['app', 'ui.grid', 'ui.grid.selection', 'ui.grid.exporter']);
+
 
 });
 
@@ -1719,26 +1720,78 @@ angular.module('app.dashboard').controller('DashboardCtrl', function ($scope, $i
     }
 //   -------NEW----
     var data = [];
-
+    $scope.onDblClickRow = function () {
+        alert("ss");
+    }
     $scope.gridOptions = {
+//        ----view informacion init
+        enableSorting: true,
+        enableFiltering: true,
+        showTreeExpandNoChildren: true,
+//        ----view informacion end---
         showGridFooter: true,
         showColumnFooter: true,
-        enableFiltering: true,
+//        rowTemplate: '<div ng-dblclick="onDblClickRow(row)" ng-style="{ \’cursor\’: row.cursor }" ng-repeat="col in renderedColumns" ng-class="col.colIndex()" class="ngCell {{col.cellClass}}"><div class="ngVerticalBar" ng-style="{height: rowHeight}" ng-class="{ ngVerticalBarVisible: !$last }">&nbsp;</div><div ng-cell></div></div>',
         columnDefs: [
-            {field: 'id_pedido'},
-            {field: 'nombres'},
-            {field: 'pais'},
-            {field: 'ciudad'},
-            {field: 'codigo_postal'},
-            {field: 'direccion_total'},
-            {field: 'telefono'},
-            {field: 'estado'},
+            {field: 'id_pedido', width: '10%', cellTemplate: '<div  ng-click="onDblClickRow(row)" class="ui-grid-cell-contents" >{{ grid.getCellValue(row, col)}}</div>'},
+            {field: 'fecha_pedido', width: '10%'},
+            {field: 'nombres',
+                filter: {
+                    placeholder: 'Busqueda',
+                    ariaLabel: 'I have a custom aria label for this field.'
+                },
+                width: '25%'},
+            {field: 'pais', width: '10%'},
+            {field: 'ciudad', width: '10%'},
+            {field: 'codigo_postal', width: '10%'},
+            {field: 'direccion_total', width: '25%'},
+            {field: 'telefono', width: '10%'},
+            {field: 'estado', filter: {
+                    type: uiGridConstants.filter.SELECT,
+                    selectOptions: [
+                        {value: '1', label: 'Activo'},
+                        {value: '2', label: 'Inactivo'},
+                    ],
+                }, width: '10%'},
             {field: 'total_pedido', aggregationType: uiGridConstants.aggregationTypes.sum, width: '13%'},
         ],
-        data: data,
+//        *----menu exportar--
+//        enableGridMenu: true,
+//        enableSelectAll: true,
+//        exporterCsvFilename: 'myFile.csv',
+////        exporterPdfDefaultStyle: {fontSize: 9},
+//        exporterPdfTableStyle: {margin: [30, 30, 30, 30]},
+//        exporterPdfTableHeaderStyle: {fontSize: 10, bold: true, italics: true, color: 'red'},
+//        exporterPdfHeader: {text: "My Header", style: 'headerStyle'},
+//        exporterPdfFooter: function (currentPage, pageCount) {
+//            return {text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle'};
+//        },
+//        exporterPdfCustomFormatter: function (docDefinition) {
+//            docDefinition.styles.headerStyle = {fontSize: 22, bold: true};
+//            docDefinition.styles.footerStyle = {fontSize: 10, bold: true};
+//            return docDefinition;
+//        },
+//        exporterPdfOrientation: 'portrait',
+//        exporterPdfPageSize: 'LETTER',
+//        exporterPdfMaxGridWidth: 500,
+//        exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location")),
+
         onRegisterApi: function (gridApi) {
             $scope.gridApi = gridApi;
-        }
+            console.log(gridApi);
+            $scope.gridApi.treeBase.on.rowExpanded($scope, function (row) {
+                if (row.entity.$$hashKey === $scope.gridOptions.data[50].$$hashKey && !$scope.nodeLoaded) {
+                    $interval(function () {
+                        $scope.gridOptions.data.splice(51, 0,
+                                {name: 'Dynamic 1', gender: 'female', age: 53, company: 'Griddable grids', balance: 38000, $$treeLevel: 1},
+                                {name: 'Dynamic 2', gender: 'male', age: 18, company: 'Griddable grids', balance: 29000, $$treeLevel: 1}
+                        );
+                        $scope.nodeLoaded = true;
+                    }, 2000, 1);
+                }
+            });
+        },
+        data: data,
     };
 //
 //    $scope.toggleFooter = function () {
@@ -1756,7 +1809,7 @@ angular.module('app.dashboard').controller('DashboardCtrl', function ($scope, $i
                 var array_ready = [];
                 angular.forEach(data, function (value, key) {
                     var row_object = {
-                        id_pedido:value.id_pedido,
+                        id_pedido: value.id_pedido,
                         nombres: value.nombre + " " + value.apellido,
                         pais: value.pais,
                         ciudad: value.ciudad,
@@ -1769,9 +1822,24 @@ angular.module('app.dashboard').controller('DashboardCtrl', function ($scope, $i
                     };
                     array_ready.push(row_object);
                 });
-
+                array_ready[0].$$treeLevel = 0;
+                array_ready[1].$$treeLevel = 1;
+                console.log("sdadad");
                 $scope.gridOptions.data = array_ready;
             });
+//            ---expand date--
+    $scope.expandAll = function () {
+        $scope.gridApi.treeBase.expandAllRows();
+    };
+
+    $scope.toggleRow = function (rowNum) {
+        $scope.gridApi.treeBase.toggleRowTreeState($scope.gridApi.grid.renderContainers.body.visibleRowCache[rowNum]);
+    };
+
+    $scope.toggleExpandNoChildren = function () {
+        $scope.gridOptions.showTreeExpandNoChildren = !$scope.gridOptions.showTreeExpandNoChildren;
+        $scope.gridApi.grid.refresh();
+    };
 
     $scope.myInterval = 3000;
     $scope.slides = [
