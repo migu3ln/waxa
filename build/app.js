@@ -381,6 +381,7 @@ angular.module('app', [
     'app.appViews',
     'app.misc',
     'app.smartAdmin',
+    'app.controllers'//AGREGAR CONTROLLADORES
 //    'ui.grid',
 ])
         .config(function ($provide, $httpProvider) {
@@ -718,7 +719,7 @@ angular.module('app.dashboard', [
                         url: '/dashboard',
                         views: {
                             "content@app": {
-                                controller: 'DashboardCtrl',
+                                controller: 'AppCtrl',
                                 templateUrl: 'app/dashboard/dashboard.html'
                             }
                         },
@@ -1667,564 +1668,552 @@ angular.module('app.chat', ['ngSanitize'])
 'use strict';
 //uiGridConstants
 //angular.module('app.dashboard').controller('DashboardCtrl', function ($scope, $interval, CalendarEvent, $http,uiGridConstants) {
-angular.module('app.dashboard').controller('DashboardCtrl', function ($scope, $interval, CalendarEvent, $http, uiGridConstants) {
-    // Live Feeds Widget Data And Display Controls
-    // Live Stats Tab
-
-    $scope.title_dashboard = "alex";
-//-------------GESTION INIT------
-
-    $scope.header_icon = "fa-table";
-    $scope.header_typeGestionName = "Administrar";
-    $scope.header_typeGestionEntidad = "Formularios";
-    $scope.width_style = "8%";
-    $scope.width = 8;
-    $scope.height = 8;
-    $scope.height_style = "8%";
-
-
-//    $scope.$watch('width', function (value) {
-//        console.log(svg_logo);
-//        console.log(rec);
-//        svg_logo.attr({width: value+"%"});
-////        rec.animate({width: value}, 500, mina.easein);
-//    });
-//    $scope.$watch('height', function (value) {
-//        svg_logo.attr({height: value+"%"});
-////        rec.animate({height: value}, 500, mina.easein);
-//    });
-    $scope.dimension_h = function (value) {
-        console.log(value);
-        $scope.height_style = value + "%";
-    }
-    $scope.dimension_w = function (value) {
-        $scope.width_style = value + "%";
-    }
-    $scope.gridOptions = {
-        enableSorting: true,
-        columnDefs: [
-            {name: 'field1', enableSorting: false},
-            {name: 'field2'},
-            {name: 'field3', visible: false}
-        ]
-    };
-    $scope.load = function () {
-//        ProductsService.readAll().then(function (response) {
-//            $scope.gridOptions.data = response.data;
-//        });
-    }
-    $scope.shirley = "Hola soy shirley";
-    $scope.change_info = function () {
-        alert("aa");
-        $scope.shirley = "Hola q mas alex";
-    }
-//   -------NEW----
-    var data = [];
-    $scope.onDblClickRow = function () {
-        alert("ss");
-    }
-    $scope.gridOptions = {
-//        ----view informacion init
-        enableSorting: true,
-        enableFiltering: true,
-        showTreeExpandNoChildren: true,
-//        ----view informacion end---
-        showGridFooter: true,
-        showColumnFooter: true,
-//        rowTemplate: '<div ng-dblclick="onDblClickRow(row)" ng-style="{ \’cursor\’: row.cursor }" ng-repeat="col in renderedColumns" ng-class="col.colIndex()" class="ngCell {{col.cellClass}}"><div class="ngVerticalBar" ng-style="{height: rowHeight}" ng-class="{ ngVerticalBarVisible: !$last }">&nbsp;</div><div ng-cell></div></div>',
-        columnDefs: [
-            {field: 'id_pedido', width: '10%', cellTemplate: '<div  ng-click="onDblClickRow(row)" class="ui-grid-cell-contents" >{{ grid.getCellValue(row, col)}}</div>'},
-            {field: 'fecha_pedido', width: '10%'},
-            {field: 'nombres',
-                filter: {
-                    placeholder: 'Busqueda',
-                    ariaLabel: 'I have a custom aria label for this field.'
-                },
-                width: '25%'},
-            {field: 'pais', width: '10%'},
-            {field: 'ciudad', width: '10%'},
-            {field: 'codigo_postal', width: '10%'},
-            {field: 'direccion_total', width: '25%'},
-            {field: 'telefono', width: '10%'},
-            {field: 'estado', filter: {
-                    type: uiGridConstants.filter.SELECT,
-                    selectOptions: [
-                        {value: '1', label: 'Activo'},
-                        {value: '2', label: 'Inactivo'},
-                    ],
-                }, width: '10%'},
-            {field: 'total_pedido', aggregationType: uiGridConstants.aggregationTypes.sum, width: '13%'},
-        ],
-//        *----menu exportar--
-//        enableGridMenu: true,
-//        enableSelectAll: true,
-//        exporterCsvFilename: 'myFile.csv',
-////        exporterPdfDefaultStyle: {fontSize: 9},
-//        exporterPdfTableStyle: {margin: [30, 30, 30, 30]},
-//        exporterPdfTableHeaderStyle: {fontSize: 10, bold: true, italics: true, color: 'red'},
-//        exporterPdfHeader: {text: "My Header", style: 'headerStyle'},
-//        exporterPdfFooter: function (currentPage, pageCount) {
-//            return {text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle'};
-//        },
-//        exporterPdfCustomFormatter: function (docDefinition) {
-//            docDefinition.styles.headerStyle = {fontSize: 22, bold: true};
-//            docDefinition.styles.footerStyle = {fontSize: 10, bold: true};
-//            return docDefinition;
-//        },
-//        exporterPdfOrientation: 'portrait',
-//        exporterPdfPageSize: 'LETTER',
-//        exporterPdfMaxGridWidth: 500,
-//        exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location")),
-
-        onRegisterApi: function (gridApi) {
-            $scope.gridApi = gridApi;
-            console.log(gridApi);
-            $scope.gridApi.treeBase.on.rowExpanded($scope, function (row) {
-                if (row.entity.$$hashKey === $scope.gridOptions.data[50].$$hashKey && !$scope.nodeLoaded) {
-                    $interval(function () {
-                        $scope.gridOptions.data.splice(51, 0,
-                                {name: 'Dynamic 1', gender: 'female', age: 53, company: 'Griddable grids', balance: 38000, $$treeLevel: 1},
-                                {name: 'Dynamic 2', gender: 'male', age: 18, company: 'Griddable grids', balance: 29000, $$treeLevel: 1}
-                        );
-                        $scope.nodeLoaded = true;
-                    }, 2000, 1);
-                }
-            });
-        },
-        data: data,
-    };
+//angular.module('app.dashboard').controller('DashboardCtrl', function ($scope, $interval, CalendarEvent, $http, uiGridConstants) {
+//    // Live Feeds Widget Data And Display Controls
+//    // Live Stats Tab
 //
-//    $scope.toggleFooter = function () {
-//        $scope.gridOptions.showGridFooter = !$scope.gridOptions.showGridFooter;
-//        $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.OPTIONS);
+//    $scope.title_dashboard = "alex";
+//    $scope.data_row = {};
+////-------------GESTION INIT------
+//
+//    $scope.change_info = function ( row) {
+////        alert("aa", grid);
+//        $scope.data_row = row;
+//        console.log("row",row,   $scope.data_row );
+//        $scope.title_dashboard = "Hola q mas alex";
+//    }
+////   -------NEW----
+//    var data = [];
+//    $scope.data_row = {
+//    };
+//    $scope.gridOptions = {
+////        ----view informacion init
+//        enableSorting: true,
+//        enableFiltering: true,
+//        showTreeExpandNoChildren: true,
+////        ----view informacion end---
+//        showGridFooter: true,
+//        showColumnFooter: true,
+////        rowTemplate: '<div ng-click="{{viewInfo(row)}}" ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.uid" class="ui-grid-cell" ng-class="col.colIndex()" ui-grid-cell></div>',
+////        rowTemplate: '<div ng-dblclick="onDblClickRow(row)" ng-style="{ \’cursor\’: row.cursor }" ng-repeat="col in renderedColumns" ng-class="col.colIndex()" class="ngCell {{col.cellClass}}"><div class="ngVerticalBar" ng-style="{height: rowHeight}" ng-class="{ ngVerticalBarVisible: !$last }">&nbsp;</div><div ng-cell></div></div>',
+//        columnDefs: [
+//            {field: 'id', name: '',
+//                cellTemplate: 'edit-button.html', 
+////                cellTemplate:'<div class="ui-grid-cell-contents" ng-controller="DashboardCtrl">  <button type="button" class="btn btn-xs btn-primary" ng-click="change_info(row)" ><i class="fa fa-edit"></i></button></div>',
+//                width: 34},
+//            {field: 'fecha_pedido', width: '10%'},
+//            {field: 'nombres',
+//                filter: {
+//                    placeholder: 'Busqueda',
+//                    ariaLabel: 'I have a custom aria label for this field.'
+//                },
+//                width: '25%'},
+//            {field: 'pais', width: '10%'},
+//            {field: 'ciudad', width: '10%'},
+//            {field: 'codigo_postal', width: '10%'},
+//            {field: 'direccion_total', width: '25%'},
+//            {field: 'telefono', width: '10%'},
+//            {field: 'estado', filter: {
+//                    type: uiGridConstants.filter.SELECT,
+//                    selectOptions: [
+//                        {value: '1', label: 'Activo'},
+//                        {value: '2', label: 'Inactivo'},
+//                    ],
+//                }, width: '10%'},
+//            {field: 'total_pedido', aggregationType: uiGridConstants.aggregationTypes.sum, width: '13%'},
+//        ],
+////        *----menu exportar--
+////        enableGridMenu: true,
+////        enableSelectAll: true,
+////        exporterCsvFilename: 'myFile.csv',
+//////        exporterPdfDefaultStyle: {fontSize: 9},
+////        exporterPdfTableStyle: {margin: [30, 30, 30, 30]},
+////        exporterPdfTableHeaderStyle: {fontSize: 10, bold: true, italics: true, color: 'red'},
+////        exporterPdfHeader: {text: "My Header", style: 'headerStyle'},
+////        exporterPdfFooter: function (currentPage, pageCount) {
+////            return {text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle'};
+////        },
+////        exporterPdfCustomFormatter: function (docDefinition) {
+////            docDefinition.styles.headerStyle = {fontSize: 22, bold: true};
+////            docDefinition.styles.footerStyle = {fontSize: 10, bold: true};
+////            return docDefinition;
+////        },
+////        exporterPdfOrientation: 'portrait',
+////        exporterPdfPageSize: 'LETTER',
+////        exporterPdfMaxGridWidth: 500,
+////        exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location")),
+//
+//        onRegisterApi: function (gridApi) {
+//            $scope.gridApi = gridApi;
+//            this.gridApi = gridApi;
+//            if (gridApi) {
+//
+////            console.log( gridApi.selection.on);
+//            }
+////              gridApi.selection.on.rowSelectionChanged($scope, function (row) {
+////                  console.log("ros",row);
+//////                    $state.go("contact.details.view", {contactId: row.entity.contactId});
+////                });
+////            $scope.gridApi.treeBase.on.rowExpanded($scope, function (row) {
+////                if (row.entity.$$hashKey === $scope.gridOptions.data[50].$$hashKey && !$scope.nodeLoaded) {
+////                    $interval(function () {
+////                        $scope.gridOptions.data.splice(51, 0,
+////                                {name: 'Dynamic 1', gender: 'female', age: 53, company: 'Griddable grids', balance: 38000, $$treeLevel: 1},
+////                                {name: 'Dynamic 2', gender: 'male', age: 18, company: 'Griddable grids', balance: 29000, $$treeLevel: 1}
+////                        );
+////                        $scope.nodeLoaded = true;
+////                    }, 2000, 1);
+////                }
+////            });
+//        },
+//        data: data,
+//    };
+//    $scope.viewInfo = function (data) {
+//        alert("ss", data);
+//    }
+//    $scope.editRow = function (grid, row) {
+//        alert(23);
+////    $modal.open({
+////      templateUrl: 'edit-modal.html',
+////      controller: ['$modalInstance', 'PersonSchema', 'grid', 'row', RowEditCtrl],
+////      controllerAs: 'vm',
+////      resolve: {
+////        grid: function () { return grid; },
+////        row: function () { return row; }
+////      }
+////    });
+//    };
+//    $http.get('http://eparqin.com/json/ordenesjson.php')
+//            .success(function (data) {
+//                var array_ready = [];
+//                angular.forEach(data, function (value, key) {
+//                    var row_object = {
+//                        id: value.id_pedido,
+//                        nombres: value.nombre + " " + value.apellido,
+//                        pais: value.pais,
+//                        ciudad: value.ciudad,
+//                        codigo_postal: value.codigo_postal,
+//                        direccion_total: "Direccion Principal:" + value.direccion1 + " Direccion Secundaria:" + value.direccion2,
+//                        fecha_pedido: value.fecha_pedido,
+//                        estado: value.estado,
+//                        telefono: value.telefono,
+//                        total_pedido: value.total_pedido,
+//                    };
+////                    for (i = 0; i < data.length; i++) {
+////                        data[i].subGridOptions = {
+////                            columnDefs: [{name: "Id", field: "id"}, {name: "Name", field: "name"}],
+////                            data: data[i].friends
+////                        }
+////                    }
+//                    array_ready.push(row_object);
+//
+//                });
+//                for (var i = 0; i < data.length; i++) {
+//                    data[i].subGridOptions = {
+//                        columnDefs: [{name: "Id", field: "id"}, {name: "Name", field: "name"}],
+//                        data: [
+//                            {id: 1, name: "alex"}, {id: 5, name: "adad"
+//
+//                            }
+//                        ]
+//                    }
+//                }
+////                array_ready[0].$$treeLevel = 0;
+////                array_ready[1].$$treeLevel = 1;
+//                console.log("sdadad");
+//                $scope.gridOptions.data = array_ready;
+//            });
+////            ---expand date--
+//    $scope.expandAll = function () {
+//        $scope.gridApi.treeBase.expandAllRows();
 //    };
 //
-//    $scope.toggleColumnFooter = function () {
-//        $scope.gridOptions.showColumnFooter = !$scope.gridOptions.showColumnFooter;
-//        $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.OPTIONS);
+//    $scope.toggleRow = function (rowNum) {
+//        $scope.gridApi.treeBase.toggleRowTreeState($scope.gridApi.grid.renderContainers.body.visibleRowCache[rowNum]);
 //    };
-
-    $http.get('http://eparqin.com/json/ordenesjson.php')
-            .success(function (data) {
-                var array_ready = [];
-                angular.forEach(data, function (value, key) {
-                    var row_object = {
-                        id_pedido: value.id_pedido,
-                        nombres: value.nombre + " " + value.apellido,
-                        pais: value.pais,
-                        ciudad: value.ciudad,
-                        codigo_postal: value.codigo_postal,
-                        direccion_total: "Direccion Principal:" + value.direccion1 + " Direccion Secundaria:" + value.direccion2,
-                        fecha_pedido: value.fecha_pedido,
-                        estado: value.estado,
-                        telefono: value.telefono,
-                        total_pedido: value.total_pedido,
-                    };
-                    for (i = 0; i < data.length; i++) {
-                        data[i].subGridOptions = {
-                            columnDefs: [{name: "Id", field: "id"}, {name: "Name", field: "name"}],
-                            data: data[i].friends
-                        }
-                    }
-                    array_ready.push(row_object);
-
-                });
-                array_ready[0].$$treeLevel = 0;
-                array_ready[1].$$treeLevel = 1;
-                console.log("sdadad");
-                $scope.gridOptions.data = array_ready;
-            });
-//            ---expand date--
-    $scope.expandAll = function () {
-        $scope.gridApi.treeBase.expandAllRows();
-    };
-
-    $scope.toggleRow = function (rowNum) {
-        $scope.gridApi.treeBase.toggleRowTreeState($scope.gridApi.grid.renderContainers.body.visibleRowCache[rowNum]);
-    };
-
-    $scope.toggleExpandNoChildren = function () {
-        $scope.gridOptions.showTreeExpandNoChildren = !$scope.gridOptions.showTreeExpandNoChildren;
-        $scope.gridApi.grid.refresh();
-    };
-
-    $scope.myInterval = 3000;
-    $scope.slides = [
-        {
-            text: "Producto 1",
-            image: base_url_project + '/images/productos/productos/1.jpg'
-        },
-        {
-            text: "Producto 2",
-            image: base_url_project + '/images/productos/productos/2.gif'
-
-        },
-        {
-            text: "Producto 3",
-            image: base_url_project + '/images/productos/productos/3.png'
-
-        },
-        {
-            text: "Producto 4",
-            image: base_url_project + '/images/productos/productos/4.jpg'
-
-        },
-        {
-            text: "Producto 5",
-            image: base_url_project + '/images/productos/5.png'
-
-        },
-        {
-            text: "Producto 6",
-            image: base_url_project + '/images/productos/6.jpg'
-
-        },
-        {
-            text: "Producto 7",
-            image: base_url_project + '/images/productos/7.png'
-
-        },
-        {
-            text: "Producto 8",
-            image: base_url_project + '/images/productos/8.png'
-
-        },
-        {
-            text: "Producto 9",
-            image: base_url_project + '/images/productos/9.jpg'
-
-        },
-        {
-            text: "Producto 10",
-            image: base_url_project + '/images/productos/10.png'
-
-        },
-    ];
-    $scope.isCollapsed = false;
-    $scope.isCollapsedHorizontal = false;
-    $scope.items1 = [1, 2, 3, 4, 5, 6, 7];
-    $scope.items2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
-//    ---- select 2
-//    $scope.select2Options = {
-//        allowClear: true
+//
+//    $scope.toggleExpandNoChildren = function () {
+//        $scope.gridOptions.showTreeExpandNoChildren = !$scope.gridOptions.showTreeExpandNoChildren;
+//        $scope.gridApi.grid.refresh();
 //    };
-//    $scope.list_of_string = 'tag1';
-//    $scope.select2Options = {
-//        'multiple': false,
-//        'simple_tags': false,
-//        'tags': ['tag1', 'tag2', 'tag3', 'tag4']  // Can be empty list.
+//
+//    $scope.myInterval = 3000;
+//    $scope.slides = [
+//        {
+//            text: "Producto 1",
+//            image: base_url_project + '/images/productos/productos/1.jpg'
+//        },
+//        {
+//            text: "Producto 2",
+//            image: base_url_project + '/images/productos/productos/2.gif'
+//
+//        },
+//        {
+//            text: "Producto 3",
+//            image: base_url_project + '/images/productos/productos/3.png'
+//
+//        },
+//        {
+//            text: "Producto 4",
+//            image: base_url_project + '/images/productos/productos/4.jpg'
+//
+//        },
+//        {
+//            text: "Producto 5",
+//            image: base_url_project + '/images/productos/5.png'
+//
+//        },
+//        {
+//            text: "Producto 6",
+//            image: base_url_project + '/images/productos/6.jpg'
+//
+//        },
+//        {
+//            text: "Producto 7",
+//            image: base_url_project + '/images/productos/7.png'
+//
+//        },
+//        {
+//            text: "Producto 8",
+//            image: base_url_project + '/images/productos/8.png'
+//
+//        },
+//        {
+//            text: "Producto 9",
+//            image: base_url_project + '/images/productos/9.jpg'
+//
+//        },
+//        {
+//            text: "Producto 10",
+//            image: base_url_project + '/images/productos/10.png'
+//
+//        },
+//    ];
+//    $scope.isCollapsed = false;
+//    $scope.isCollapsedHorizontal = false;
+//    $scope.items1 = [1, 2, 3, 4, 5, 6, 7];
+//    $scope.items2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+//
+////    ---- select 2
+////    $scope.select2Options = {
+////        allowClear: true
+////    };
+////    $scope.list_of_string = 'tag1';
+////    $scope.select2Options = {
+////        'multiple': false,
+////        'simple_tags': false,
+////        'tags': ['tag1', 'tag2', 'tag3', 'tag4']  // Can be empty list.
+////    };
+////    var vm=this;
+//
+////    ---select--
+//    $scope.person = {};
+//
+//    $scope.enabled = true;
+//    $scope.onOff = true;
+//    $scope.yesNo = true;
+//    $scope.disabled = true;
+//
+//
+//    function getFakeItem(index, prevValue) {
+//        var limitUp = Math.min(100, prevValue + 5),
+//                limitDown = Math.abs(prevValue - 5);
+//        return [
+//            index,
+//            _.random(limitDown, limitUp, true)
+//        ]
+//    }
+//
+//    function getFakeData() {
+//        return _(_.range(199)).reduce(function (out, number) {
+//
+//            out.push(getFakeItem(number + 1, _.last(out)[1]));
+//            return out;
+//        }, [
+//            [0, 50] // starting point
+//        ])
+//    }
+//
+//    $scope.autoUpdate = false;
+//
+//    var updateInterval;
+//    $scope.$watch('autoUpdate', function (autoUpdate) {
+//
+//        if (autoUpdate) {
+//            updateInterval = $interval(function () {
+//                var stats = _.rest($scope.liveStats[0]).map(function (elem, i) {
+//                    elem[0] = i;
+//                    return elem;
+//                });
+//                stats.push([199, _.last(stats)[1]]);
+//                $scope.liveStats = [stats];
+//            }, 1500)
+//        } else {
+//            $interval.cancel(updateInterval);
+//        }
+//    });
+//
+//
+//    $scope.liveStats = [getFakeData()];
+//
+//
+//
+//    $scope.liveStatsOptions = {
+//        yaxis: {
+//            min: 0,
+//            max: 69
+//        },
+//        xaxis: {
+//            min: 0,
+//            max: 69
+//        },
+//        colors: ['rgb(87, 136, 156)'],
+//        series: {
+//            lines: {
+//                lineWidth: 1,
+//                fill: true,
+//                fillColor: {
+//                    colors: [
+//                        {
+//                            opacity: 0.4
+//                        },
+//                        {
+//                            opacity: 0
+//                        }
+//                    ]
+//                },
+//                steps: false
+//
+//            }
+//        }
 //    };
-//    var vm=this;
-
-//    ---select--
-    $scope.person = {};
-
-    $scope.enabled = true;
-    $scope.onOff = true;
-    $scope.yesNo = true;
-    $scope.disabled = true;
-
-
-    function getFakeItem(index, prevValue) {
-        var limitUp = Math.min(100, prevValue + 5),
-                limitDown = Math.abs(prevValue - 5);
-        return [
-            index,
-            _.random(limitDown, limitUp, true)
-        ]
-    }
-
-    function getFakeData() {
-        return _(_.range(199)).reduce(function (out, number) {
-
-            out.push(getFakeItem(number + 1, _.last(out)[1]));
-            return out;
-        }, [
-            [0, 50] // starting point
-        ])
-    }
-
-    $scope.autoUpdate = false;
-
-    var updateInterval;
-    $scope.$watch('autoUpdate', function (autoUpdate) {
-
-        if (autoUpdate) {
-            updateInterval = $interval(function () {
-                var stats = _.rest($scope.liveStats[0]).map(function (elem, i) {
-                    elem[0] = i;
-                    return elem;
-                });
-                stats.push([199, _.last(stats)[1]]);
-                $scope.liveStats = [stats];
-            }, 1500)
-        } else {
-            $interval.cancel(updateInterval);
-        }
-    });
-
-
-    $scope.liveStats = [getFakeData()];
-
-
-
-    $scope.liveStatsOptions = {
-        yaxis: {
-            min: 0,
-            max: 69
-        },
-        xaxis: {
-            min: 0,
-            max: 69
-        },
-        colors: ['rgb(87, 136, 156)'],
-        series: {
-            lines: {
-                lineWidth: 1,
-                fill: true,
-                fillColor: {
-                    colors: [
-                        {
-                            opacity: 0.4
-                        },
-                        {
-                            opacity: 0
-                        }
-                    ]
-                },
-                steps: false
-
-            }
-        }
-    };
-
-
-    // Stats Display With Flot Chart
-
-    var twitter = [
-        [1, 27],
-        [2, 34],
-        [3, 51],
-        [4, 48],
-        [5, 55],
-        [6, 65],
-        [7, 61],
-        [8, 70],
-        [9, 65],
-        [10, 75],
-        [11, 57],
-        [12, 59],
-        [13, 62]
-    ];
-    var facebook = [
-        [1, 25],
-        [2, 31],
-        [3, 45],
-        [4, 37],
-        [5, 38],
-        [6, 40],
-        [7, 47],
-        [8, 55],
-        [9, 43],
-        [10, 50],
-        [11, 47],
-        [12, 39],
-        [13, 47]
-    ];
-    $scope.statsData = [
-        {
-            label: "Twitter",
-            data: twitter,
-            lines: {
-                show: true,
-                lineWidth: 1,
-                fill: true,
-                fillColor: {
-                    colors: [
-                        {
-                            opacity: 0.1
-                        },
-                        {
-                            opacity: 0.13
-                        }
-                    ]
-                }
-            },
-            points: {
-                show: true
-            }
-        },
-        {
-            label: "Facebook",
-            data: facebook,
-            lines: {
-                show: true,
-                lineWidth: 1,
-                fill: true,
-                fillColor: {
-                    colors: [
-                        {
-                            opacity: 0.1
-                        },
-                        {
-                            opacity: 0.13
-                        }
-                    ]
-                }
-            },
-            points: {
-                show: true
-            }
-        }
-    ];
-
-    $scope.statsDisplayOptions = {
-        grid: {
-            hoverable: true
-        },
-        colors: ["#568A89", "#3276B1"],
-        tooltip: true,
-        tooltipOpts: {
-            //content : "Value <b>$x</b> Value <span>$y</span>",
-            defaultTheme: false
-        },
-        xaxis: {
-            ticks: [
-                [1, "JAN"],
-                [2, "FEB"],
-                [3, "MAR"],
-                [4, "APR"],
-                [5, "MAY"],
-                [6, "JUN"],
-                [7, "JUL"],
-                [8, "AUG"],
-                [9, "SEP"],
-                [10, "OCT"],
-                [11, "NOV"],
-                [12, "DEC"],
-                [13, "JAN+1"]
-            ]
-        },
-        yaxes: {
-        }
-    };
-
-
-    /* Live stats TAB 3: Revenew  */
-
-    var trgt = [[1354586000000, 153], [1364587000000, 658], [1374588000000, 198], [1384589000000, 663], [1394590000000, 801], [1404591000000, 1080], [1414592000000, 353], [1424593000000, 749], [1434594000000, 523], [1444595000000, 258], [1454596000000, 688], [1464597000000, 364]],
-            prft = [[1354586000000, 53], [1364587000000, 65], [1374588000000, 98], [1384589000000, 83], [1394590000000, 980], [1404591000000, 808], [1414592000000, 720], [1424593000000, 674], [1434594000000, 23], [1444595000000, 79], [1454596000000, 88], [1464597000000, 36]],
-            sgnups = [[1354586000000, 647], [1364587000000, 435], [1374588000000, 784], [1384589000000, 346], [1394590000000, 487], [1404591000000, 463], [1414592000000, 479], [1424593000000, 236], [1434594000000, 843], [1444595000000, 657], [1454596000000, 241], [1464597000000, 341]];
-
-    var targets = {
-        label: "Target Profit",
-        data: trgt,
-        bars: {
-            show: true,
-            align: "center",
-            barWidth: 30 * 30 * 60 * 1000 * 80
-        }
-    };
-    $scope.targetsShow = true;
-
-    $scope.$watch('targetsShow', function (toggle) {
-        reveniewElementToggle(targets, toggle);
-    });
-
-
-    var actuals = {
-        label: "Actual Profit",
-        data: prft,
-        color: '#3276B1',
-        lines: {
-            show: true,
-            lineWidth: 3
-        },
-        points: {
-            show: true
-        }
-    };
-
-    $scope.actualsShow = true;
-
-    $scope.$watch('actualsShow', function (toggle) {
-        reveniewElementToggle(actuals, toggle);
-    });
-
-    var signups = {
-        label: "Actual Signups",
-        data: sgnups,
-        color: '#71843F',
-        lines: {
-            show: true,
-            lineWidth: 1
-        },
-        points: {
-            show: true
-        }
-    };
-    $scope.signupsShow = true;
-
-    $scope.$watch('signupsShow', function (toggle) {
-        reveniewElementToggle(signups, toggle);
-    });
-
-    $scope.revenewData = [targets, actuals, signups];
-
-    function reveniewElementToggle(element, toggle) {
-        if (toggle) {
-            if ($scope.revenewData.indexOf(element) == -1)
-                $scope.revenewData.push(element)
-        } else {
-            $scope.revenewData = _.without($scope.revenewData, element);
-        }
-    }
-
-    $scope.revenewDisplayOptions = {
-        grid: {
-            hoverable: true
-        },
-        tooltip: true,
-        tooltipOpts: {
-            //content: '%x - %y',
-            //dateFormat: '%b %y',
-            defaultTheme: false
-        },
-        xaxis: {
-            mode: "time"
-        },
-        yaxes: {
-            tickFormatter: function (val, axis) {
-                return "$" + val;
-            },
-            max: 1200
-        }
-
-    };
-
-    // bird eye widget data
-    $scope.countriesVisitsData = {
-        "US": 4977,
-        "AU": 4873,
-        "IN": 3671,
-        "BR": 2476,
-        "TR": 1476,
-        "CN": 146,
-        "CA": 134,
-        "BD": 100
-    };
-
-    $scope.events = [];
-
-    // Queriing our events from CalendarEvent resource...
-    // Scope update will automatically update the calendar
-    CalendarEvent.query().$promise.then(function (events) {
-        $scope.events = events;
-    });
-
-
-});
+//
+//
+//    // Stats Display With Flot Chart
+//
+//    var twitter = [
+//        [1, 27],
+//        [2, 34],
+//        [3, 51],
+//        [4, 48],
+//        [5, 55],
+//        [6, 65],
+//        [7, 61],
+//        [8, 70],
+//        [9, 65],
+//        [10, 75],
+//        [11, 57],
+//        [12, 59],
+//        [13, 62]
+//    ];
+//    var facebook = [
+//        [1, 25],
+//        [2, 31],
+//        [3, 45],
+//        [4, 37],
+//        [5, 38],
+//        [6, 40],
+//        [7, 47],
+//        [8, 55],
+//        [9, 43],
+//        [10, 50],
+//        [11, 47],
+//        [12, 39],
+//        [13, 47]
+//    ];
+//    $scope.statsData = [
+//        {
+//            label: "Twitter",
+//            data: twitter,
+//            lines: {
+//                show: true,
+//                lineWidth: 1,
+//                fill: true,
+//                fillColor: {
+//                    colors: [
+//                        {
+//                            opacity: 0.1
+//                        },
+//                        {
+//                            opacity: 0.13
+//                        }
+//                    ]
+//                }
+//            },
+//            points: {
+//                show: true
+//            }
+//        },
+//        {
+//            label: "Facebook",
+//            data: facebook,
+//            lines: {
+//                show: true,
+//                lineWidth: 1,
+//                fill: true,
+//                fillColor: {
+//                    colors: [
+//                        {
+//                            opacity: 0.1
+//                        },
+//                        {
+//                            opacity: 0.13
+//                        }
+//                    ]
+//                }
+//            },
+//            points: {
+//                show: true
+//            }
+//        }
+//    ];
+//
+//    $scope.statsDisplayOptions = {
+//        grid: {
+//            hoverable: true
+//        },
+//        colors: ["#568A89", "#3276B1"],
+//        tooltip: true,
+//        tooltipOpts: {
+//            //content : "Value <b>$x</b> Value <span>$y</span>",
+//            defaultTheme: false
+//        },
+//        xaxis: {
+//            ticks: [
+//                [1, "JAN"],
+//                [2, "FEB"],
+//                [3, "MAR"],
+//                [4, "APR"],
+//                [5, "MAY"],
+//                [6, "JUN"],
+//                [7, "JUL"],
+//                [8, "AUG"],
+//                [9, "SEP"],
+//                [10, "OCT"],
+//                [11, "NOV"],
+//                [12, "DEC"],
+//                [13, "JAN+1"]
+//            ]
+//        },
+//        yaxes: {
+//        }
+//    };
+//
+//
+//    /* Live stats TAB 3: Revenew  */
+//
+//    var trgt = [[1354586000000, 153], [1364587000000, 658], [1374588000000, 198], [1384589000000, 663], [1394590000000, 801], [1404591000000, 1080], [1414592000000, 353], [1424593000000, 749], [1434594000000, 523], [1444595000000, 258], [1454596000000, 688], [1464597000000, 364]],
+//            prft = [[1354586000000, 53], [1364587000000, 65], [1374588000000, 98], [1384589000000, 83], [1394590000000, 980], [1404591000000, 808], [1414592000000, 720], [1424593000000, 674], [1434594000000, 23], [1444595000000, 79], [1454596000000, 88], [1464597000000, 36]],
+//            sgnups = [[1354586000000, 647], [1364587000000, 435], [1374588000000, 784], [1384589000000, 346], [1394590000000, 487], [1404591000000, 463], [1414592000000, 479], [1424593000000, 236], [1434594000000, 843], [1444595000000, 657], [1454596000000, 241], [1464597000000, 341]];
+//
+//    var targets = {
+//        label: "Target Profit",
+//        data: trgt,
+//        bars: {
+//            show: true,
+//            align: "center",
+//            barWidth: 30 * 30 * 60 * 1000 * 80
+//        }
+//    };
+//    $scope.targetsShow = true;
+//
+//    $scope.$watch('targetsShow', function (toggle) {
+//        reveniewElementToggle(targets, toggle);
+//    });
+//
+//
+//    var actuals = {
+//        label: "Actual Profit",
+//        data: prft,
+//        color: '#3276B1',
+//        lines: {
+//            show: true,
+//            lineWidth: 3
+//        },
+//        points: {
+//            show: true
+//        }
+//    };
+//
+//    $scope.actualsShow = true;
+//
+//    $scope.$watch('actualsShow', function (toggle) {
+//        reveniewElementToggle(actuals, toggle);
+//    });
+//
+//    var signups = {
+//        label: "Actual Signups",
+//        data: sgnups,
+//        color: '#71843F',
+//        lines: {
+//            show: true,
+//            lineWidth: 1
+//        },
+//        points: {
+//            show: true
+//        }
+//    };
+//    $scope.signupsShow = true;
+//
+//    $scope.$watch('signupsShow', function (toggle) {
+//        reveniewElementToggle(signups, toggle);
+//    });
+//
+//    $scope.revenewData = [targets, actuals, signups];
+//
+//    function reveniewElementToggle(element, toggle) {
+//        if (toggle) {
+//            if ($scope.revenewData.indexOf(element) == -1)
+//                $scope.revenewData.push(element)
+//        } else {
+//            $scope.revenewData = _.without($scope.revenewData, element);
+//        }
+//    }
+//
+//    $scope.revenewDisplayOptions = {
+//        grid: {
+//            hoverable: true
+//        },
+//        tooltip: true,
+//        tooltipOpts: {
+//            //content: '%x - %y',
+//            //dateFormat: '%b %y',
+//            defaultTheme: false
+//        },
+//        xaxis: {
+//            mode: "time"
+//        },
+//        yaxes: {
+//            tickFormatter: function (val, axis) {
+//                return "$" + val;
+//            },
+//            max: 1200
+//        }
+//
+//    };
+//
+//    // bird eye widget data
+//    $scope.countriesVisitsData = {
+//        "US": 4977,
+//        "AU": 4873,
+//        "IN": 3671,
+//        "BR": 2476,
+//        "TR": 1476,
+//        "CN": 146,
+//        "CA": 134,
+//        "BD": 100
+//    };
+//
+//    $scope.events = [];
+//
+//    // Queriing our events from CalendarEvent resource...
+//    // Scope update will automatically update the calendar
+//    CalendarEvent.query().$promise.then(function (events) {
+//        $scope.events = events;
+//    });
+//
+//
+//});
 //}]);
 'use strict'
 

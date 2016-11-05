@@ -64,29 +64,19 @@
     </head>
 
     <body class="fixed-header fixed-page-footer" id="body-informacion">
-
-        <!-- ui-view container -->
-
         <div data-ui-view="root"  data-autoscroll="false"></div>
-
-        <!--[if lt IE 7]>
-                <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-
-        <!--[if lt IE 9]>
-                <script src="plugin/es5-shim/es5-shim.js"></script>
-                <script src="plugin/json3/lib/json3.min.js"></script>
-        <![endif]-->
-
-        <!-- Use for production after building the project with grunt --> 
-
         <script src="build/vendor.js"></script>		
         <script src="build/app.js"></script>
+        <script src="build/controllers.js"></script>
         <!-----ui grid js----->
         <script src="http://ui-grid.info/docs/grunt-scripts/csv.js"></script>
         <script src="http://ui-grid.info/docs/grunt-scripts/pdfmake.js"></script>
         <script src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>
         <script src="plugin/angular-plugins/ng-grid/ui-grid.min.js"></script>		
+        <script src="https://cdn.rawgit.com/mike-marcacci/objectpath/v1.1.0/lib/ObjectPath.js"></script>
+        <script src="https://cdn.rawgit.com/geraintluff/tv4/v1.1.9/tv4.min.js"></script>
+        <script src="https://cdn.rawgit.com/Textalk/angular-schema-form/0.8.0/dist/schema-form.js"></script>
+        <script src="https://cdn.rawgit.com/Textalk/angular-schema-form/0.8.0/dist/bootstrap-decorator.js"></script>
 
 
     </body>
