@@ -1,31 +1,126 @@
 <!-- MAIN CONTENT -->
 
-<div id="content"  ng-controller="AppCtrl">
-    {{title_dashboard}}
-    <div class="row-fluid" id="table-productos">
+<div   id="content" ng-controller="AppCtrl">
+    <section id="widget-grid" data-widget-grid>
+        <!-- row -->
+        <div class="row">
+            <!-- NEW WIDGET START -->
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div id="content-data-widget" data-jarvis-widget>
+                    <header>
+                        <h2><strong>{{title_gestion}} </strong> <i>{{title_proceso}}</i></h2>
+                    </header>
+                    <!-- widget div-->
+                    <div>
+                        <!-- widget content -->
+                        <div class="widget-body">
+                            {{title_dashboard}}
+                            <div class="row-fluid well "  ng-hide="hideGridParent" id="table-parent">
 
-        <div class="col-md-12">
-            <!--<div id="dg-ventas" ui-grid="gridOptions" ui-grid-tree-view class=" xywer-tbl-angular"></div>-->
-            <!--<div id="dg-ventas" ui-grid="gridOptions" ui-grid-edit class=" xywer-tbl-angular"></div>-->
-            <!--<div id="dg-ventas" ui-grid="gridOptions" ui-grid-expandable class=" xywer-tbl-angular"></div>-->
-            <!--<div id="dg-ventas" ui-grid="gridOptions" ui-grid-selection ui-grid-exporter class=" xywer-tbl-angular"></div>-->
-          <div class="grid" ui-grid="gridOptions" ui-grid-edit></div>
+                                <div class="grid" ui-grid="gridOptions" ui-grid-edit ></div>
+                               
+                            </div>
+                            <div class="row-fluid well" id="table-children"  ng-hide="hideGridChildren">
+                                <div ng-if="hideGridChildren == false" >
+                                    <button type="button" class="btn btn-success" ng-click="return_admin()">
+                                        Regresar
+                                    </button>
+                                    <br>
 
+                                    <div class="padding-10">
+                                        <br>
+                                        <div class="pull-left">
+                                            <img src="styles/img/logo-blacknwhite.png" width="150" height="32" alt="invoice icon">
+                                            <address>
+                                                <br>
+                                                <strong>SmartAdmin, Inc.</strong>
+                                                <br>
+                                                231 Ajax Rd,
+                                                <br>
+                                                Detroit MI - 48212, USA
+                                                <br>
+                                                <abbr title="Phone">P:</abbr> (123) 456-7890
+                                            </address>
+                                        </div>
+                                        <div class="pull-right">
+                                            <h1 class="font-400">invoice</h1>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <br>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-sm-9">
+                                                <h4 class="semi-bold">Rogers, Inc.</h4>
+                                                <address>
+                                                    <strong>{{ data_row_info.nombres}}</strong>
+                                                    <br>
+                                                    {{ data_row_info.direccion}}
+                                                    <br>
+                                                    {{ data_row_info.pais + " ," + data_row_info.ciudad + " " + data_row_info.codigo_postal}}
+                                                    <br>
+                                                    <abbr title="Phone">P:</abbr>   {{ data_row_info.telefono}}
+                                                </address>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div>
+                                                    <div>
+                                                        <strong>INVOICE NO :</strong>
+                                                        <span class="pull-right"> #AA-454-4113-00 </span>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <div class="font-md">
+                                                        <strong>INVOICE DATE :</strong>
+                                                        <span class="pull-right"> <i class="fa fa-calendar"></i> {{CurrentDate| date:'dd-MM-yyyy'}}</span>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="well well-sm  bg-color-darken txt-color-white no-border">
+                                                    <div class="fa-lg">
+                                                        Total Due :
+                                                        <span class="pull-right">   {{ data_row_info.total_pedido}} USD** </span>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <br>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="grid" ui-grid="gridOptionsDetalle" ui-grid-edit></div>
+                                        <div class="invoice-footer">
+                                            <div class="row">
+                                                <div class="col-sm-7">
+                                                    <div class="payment-methods">
+                                                        <h5>Payment Methods</h5>
+                                                        <img src="styles/img/invoice/paypal.png" width="64" height="64" alt="paypal">
+                                                        <img src="styles/img/invoice/americanexpress.png" width="64" height="64" alt="american express">
+                                                        <img src="styles/img/invoice/mastercard.png" width="64" height="64" alt="mastercard">
+                                                        <img src="styles/img/invoice/visa.png" width="64" height="64" alt="visa">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <div class="invoice-sum-total pull-right">
+                                                        <h3><strong>Total: <span class="text-success">$ {{ data_row_info.total_pedido}}  USD</span></strong></h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <p class="note">**To avoid any excess penalty charges, please make payments within 30 days of the due date. There will be a 2% interest charge per month on all late invoices.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--alex-->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end widget content -->
+                </div>
+                <!-- end widget div -->
+            </article>  
         </div>
-        {{data_row_info}}
-        {{detalle_data_pedido}}
-    </div>
-    <!-- END MAIN CONTENT -->
-<script type="text/ng-template" id="myModalContent.html">
-    <div class="modal-header" >
-    <h3 class="modal-title" id="modal-title">   {{title_dashboard}}</h3>
-    </div>
-    <div class="modal-body" id="modal-body">
-    {{data_row_info}}
-    </div>
-    <div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button>
-    <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
-    </div>
-</script>
+    </section>  
 </div>
