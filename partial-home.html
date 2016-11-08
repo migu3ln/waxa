@@ -1,0 +1,114 @@
+
+<div class="row">
+
+    <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+        <!-- MAIN CONTENT -->
+
+        <section id="widget-grid" data-widget-grid>
+            <!-- row -->
+            <div class="row">
+                <!-- NEW WIDGET START -->
+                <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div id="content-data-widget" data-jarvis-widget class="jarviswidget jarviswidget-sortable jarviswidget-color-darken">
+                        <header>
+                            <h2><strong>{{title_gestion}} </strong> <i>{{title_proceso}}</i></h2>
+                        </header>
+                        <!-- widget div-->
+                        <div>
+                            <!-- widget content -->
+                            <div class="widget-body">
+                                {{title_dashboard}}
+                                <div class="row-fluid well "  ng-hide="hideGridParent" id="table-parent">
+
+                                    <div class="grid" ui-grid="gridOptions" ui-grid-edit ></div>
+
+                                </div>
+                                <div class="row-fluid well" id="table-children"  ng-hide="hideGridChildren">
+                                    <div ng-if="hideGridChildren == false" >
+                                        <button type="button" class="btn btn-success" ng-click="return_admin()">
+                                            Regresar
+                                        </button>
+                                        <br>
+
+                                        <div class="padding-10">
+                                            <div class="clearfix"></div>
+                                            <br>
+                                            <br>
+                                            <div class="row">
+                                                <div class="col-sm-9">
+                                                    <h4 class="semi-bold">Rogers, Inc.</h4>
+                                                    <address>
+                                                        <strong>{{ data_row_info.nombres}}</strong>
+                                                        <br>
+                                                        {{ data_row_info.direccion}}
+                                                        <br>
+                                                        {{ data_row_info.pais + " ," + data_row_info.ciudad + " " + data_row_info.codigo_postal}}
+                                                        <br>
+                                                        <abbr title="Phone">P:</abbr>   {{ data_row_info.telefono}}
+                                                    </address>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div>
+                                                        <div>
+                                                            <strong>FACTURA NO :</strong>
+                                                            <span class="pull-right"> #AA-454-4113-00 </span>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="font-md">
+                                                            <strong>FECHA:</strong>
+                                                            <span class="pull-right"> <i class="fa fa-calendar"></i> {{CurrentDate| date:'dd-MM-yyyy'}}</span>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="well well-sm  bg-color-darken txt-color-white no-border">
+                                                        <div class="fa-lg">
+                                                            Total:
+                                                            <span class="pull-right">   {{ data_row_info.total_pedido}} USD** </span>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <br>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="grid" ui-grid="gridOptionsDetalle" ui-grid-edit></div>
+                                            <div class="invoice-footer">
+                                                <div class="row">
+                                                    <div class="col-sm-7">
+                                                        <div class="payment-methods">
+                                                            <h5>Métodos de pago</h5>
+                                                            <img src="styles/img/invoice/paypal.png" width="64" height="64" alt="paypal">
+                                                            <img src="styles/img/invoice/americanexpress.png" width="64" height="64" alt="american express">
+                                                            <img src="styles/img/invoice/mastercard.png" width="64" height="64" alt="mastercard">
+                                                            <img src="styles/img/invoice/visa.png" width="64" height="64" alt="visa">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-5">
+                                                        <div class="invoice-sum-total pull-right">
+                                                            <h3><strong>Total: <span class="text-success">$ {{ data_row_info.total_pedido}}  USD</span></strong></h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <p class="note">** Para evitar cargos por multas excesivas, por favor haga los pagos dentro de los 30 días de la fecha de vencimiento. Habrá un cargo de interés del 2% por mes en todas las facturas finales.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--alex-->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end widget content -->
+                    </div>
+                    <!-- end widget div -->
+                </article>  
+        </section>  
+    </div>
+
+</div>
+
